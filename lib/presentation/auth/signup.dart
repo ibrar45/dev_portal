@@ -96,16 +96,19 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       const SizedBox(height: 24),
                       ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Will implement BLoC logic here later
-                            final email = emailController.text.trim();
-                            final password = passwordController.text.trim();
-                            context
-                                .read<AuthBloc>()
-                                .add(SignupRequested(email, password));
-                          }
-                        },
+                        onPressed: isLoading
+                            ? null
+                            : () {
+                                if (_formKey.currentState!.validate()) {
+                                  // Will implement BLoC logic here later
+                                  final email = emailController.text.trim();
+                                  final password =
+                                      passwordController.text.trim();
+                                  context
+                                      .read<AuthBloc>()
+                                      .add(SignupRequested(email, password));
+                                }
+                              },
                         child: const Text("Sign Up"),
                       ),
                       TextButton(
